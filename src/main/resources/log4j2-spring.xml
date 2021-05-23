@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status="debug" 可以查看log4j的装配过程-->
+<!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF -->
+<!-- 监控间隔，例如：monitorInterval=”600” 指log4j2每隔600秒（10分钟），自动监控该配置文件是否有变化，如果变化，则自动根据文件内容重新配置 -->
+<configuration status="OFF" monitorInterval="3600">
+
+    <properties>
+        <Property name="app_name">dubbo-account</Property>
+        <property name="log_pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %class{36} %L %M - %msg%xEx%n</property>
+        <property name="basePath">/puhuijia/puhuijia_mobile_log</property>
+        <property name="file_name_path">${basePath}/${app_name}.log</property>
+        <property name="rolling_file_info_path">${basePath}/${date:yyyy-MM}/${app_name}-%d{yyyy-MM-dd}-info-%i.log.gz</property>
+        <property name="rolling_file_error_path">${basePath}/${date:yyyy-MM}/${app_name}-%d{yyyy-MM-dd}-error-%i.log.gz</property>
+        <!-- 日志切割的最小单位 -->
+        <property name="every_file_size">200M</property>
+        <!-- 日志输出级别 -->
+        <property name="output_log_level">info</property>
+    </properties>
+
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <Filters>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${log_pattern}" />
+        </console>
+
+        <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
+        <!--append为TRUE表示消息增加到指定文件中，false表示消息覆盖指定的文件内容，默认值是true -->
+        <File name="FileLog" fileName="${basePath}/${app_name}-filelog.log" append="false">
+            <PatternLayout pattern="${log_pattern}"/>
+        </File>
+
+        <RollingFile name="RollingFileInfo" fileName="${basePath}/${app_name}-info.log"
+                     filePattern="${rolling_file_info_path}">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${log_pattern}" />
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 限制单个文件大小 -->
+                <SizeBasedTriggeringPolicy size="${every_file_size}" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="${basePath}/${app_name}-error.log"
+                     filePattern="${rolling_file_info_path}">
+            <ThresholdFilter level="ERROR" />
+            <PatternLayout pattern="${log_pattern}" />
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 限制单个文件大小 -->
+                <SizeBasedTriggeringPolicy size="${every_file_size}" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>
+        </RollingFile>
+
+        <!-- 配置mongdb appender -->
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring和hibernate的一些无用的debug信息 -->
+        <!-- 控制spring和springmvc相关日志的显示级别 -->
+        <logger name="org.springframework" level="error" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileError"/>
+        </logger>
+        <!-- 控制zookeeper相关日志的显示级别 -->
+        <logger name="org.apache.zookeeper" level="error" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileError"/>
+        </logger>
+
+
+        <root level="${output_log_level}">
+            <appender-ref ref="Console" />
+            <appender-ref ref="RollingFileInfo" />
+            <appender-ref ref="RollingFileError" />
+        </root>
+    </loggers>
+</configuration>
