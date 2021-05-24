@@ -1,0 +1,6 @@
+# 开发环境
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/schoolmanage?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 900926

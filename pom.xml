@@ -27,7 +27,8 @@
         <lombok.version>1.18.16</lombok.version>
         <mysql.version>8.0.11</mysql.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <druid.version>1.2.4</druid.version>
+        <druid.version>1.1.22</druid.version>
+        <mysql.version>8.0.11</mysql.version>
     </properties>
 
     <!--添加spring-boot-starter依赖-->
@@ -41,6 +42,19 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- 参数校验框架学习 -->
