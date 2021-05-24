@@ -26,14 +26,13 @@ import java.util.Enumeration;
 public class WebLogAspect {
 
     /**
-     * @描述
-     * @参数  []
-     * @返回值  void
-     * @创建人  wangql
-     * @创建时间  2018/6/12
-     * @修改人和其它信息
+     * @Author Wangql
+     * @Description WEB请求AOP切面日志
+     * @Date 17:39 2021/5/24
+     * @Param []
+     * @return void
      **/
-    @Pointcut("execution(public * com.puhuijia.web.controller..*.*(..))")
+    @Pointcut("execution(public * com.rrc.controller..*.*(..))")
     public void webLog(){}
 
     @Before("webLog()")
