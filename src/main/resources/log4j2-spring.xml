@@ -66,20 +66,6 @@
     </appenders>
 
     <loggers>
-        <!--过滤掉spring和hibernate的一些无用的debug信息 -->
-        <!-- 控制spring和springmvc相关日志的显示级别 -->
-        <logger name="org.springframework" level="error" additivity="false">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileError"/>
-        </logger>
-        <!-- 控制zookeeper相关日志的显示级别 -->
-        <logger name="org.apache.zookeeper" level="error" additivity="false">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileError"/>
-        </logger>
-
 
         <root level="${output_log_level}">
             <appender-ref ref="Console" />
