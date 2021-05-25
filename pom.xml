@@ -117,6 +117,19 @@
             <version>${commons-lang3.version}</version>
         </dependency>
 
+        <!-- mybatis-plus-generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <!-- freemarker模板 -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.30</version>
+        </dependency>
+
     </dependencies>
 
     <!--添加spring-boot打包插件-->
