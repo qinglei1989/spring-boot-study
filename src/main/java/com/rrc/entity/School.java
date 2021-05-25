@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.rrc.entry.base.BasePO;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * @since 2021-05-25
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@Builder
 @TableName("sys_school")
 public class School extends BasePO {
 
