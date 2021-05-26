@@ -1,5 +1,7 @@
 package com.rrc.service;
 
+import com.rrc.dto.SchoolDto;
+import com.rrc.entity.School;
 import com.rrc.vo.SchoolVo;
 
 /**
@@ -11,4 +13,8 @@ import com.rrc.vo.SchoolVo;
  **/
 public interface ISchoolService {
     void postSchool(SchoolVo schoolVo);
+
+    SchoolDto querySchool(Long schoolId);
+
+    void deleteSchool(Long schoolId);
 }

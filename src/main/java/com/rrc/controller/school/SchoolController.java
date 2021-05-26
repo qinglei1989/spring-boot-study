@@ -20,9 +20,9 @@ public class SchoolController {
     private ISchoolService schoolService;
 
     @GetMapping("/school/{schoolId}")
-    public ResultDto querySchool(@NotBlank(message = "schoolId不能为空") @PathVariable("schoolId") String schoolId) {
+    public ResultDto querySchool(@NotBlank(message = "schoolId不能为空") @PathVariable("schoolId") Long schoolId) {
 
-        return AppUtil.resultSucc();
+        return AppUtil.resultSucc(schoolService.querySchool(schoolId));
     }
 
     @PostMapping("/school")
@@ -33,8 +33,9 @@ public class SchoolController {
     }
 
     @DeleteMapping("/school/{schoolId}")
-    public ResultDto deleteSchool(@NotBlank(message = "schoolId不能为空") @PathVariable("schoolId") String schoolId) {
+    public ResultDto deleteSchool(@NotBlank(message = "schoolId不能为空") @PathVariable("schoolId") Long schoolId) {
 
+        schoolService.deleteSchool(schoolId);
         return AppUtil.resultSucc();
     }
 }

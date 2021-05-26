@@ -4,6 +4,7 @@ import com.rrc.dto.base.ResultDto;
 import com.rrc.enums.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +27,25 @@ import javax.validation.ValidationException;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-    
+
+    /**
+     * @Author Wangql
+     * @Description 数据类型校验异常类
+     * @Date 11:20 2021/5/24
+     * @Param [req, e]
+     * @return com.rrc.dto.base.ResultDto
+     **/
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    public ResultDto httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e){
+        log.error("发生异常了{},异常信息如下", e.getMessage(), e);
+
+        ResultDto exceptionResult = new ResultDto();
+        exceptionResult.setStatus(ResultEnum.RESULT_REQ_FAIL.getCode());
+        exceptionResult.setMessage("不支持的请求类型");
+        return exceptionResult;
+    }
+
     /**
      * @Author Wangql
      * @Description 数据类型校验异常类

@@ -1,5 +1,6 @@
 package com.rrc.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -73,6 +74,7 @@ public class School extends BasePO {
     /**
      * 是否删除 0已删除  1未删除
      */
+    @TableLogic(value = "1",delval = "0")
     private Integer isDelete;
 
 
