@@ -37,6 +37,11 @@ spring:
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
       # 合并多个DruidDataSource的监控数据
       use-global-data-source-stat: true
+  jackson:
+    # 指定date输出格式为yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 指定时区，解决8小时的时间差问题
+    jackson.time-zone=: GMT+8
 
 mybatis-plus:
   global-config:

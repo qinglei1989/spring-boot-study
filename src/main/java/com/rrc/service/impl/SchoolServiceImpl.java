@@ -4,13 +4,13 @@ import com.rrc.dto.SchoolDto;
 import com.rrc.entity.School;
 import com.rrc.mapper.SchoolMapper;
 import com.rrc.service.ISchoolService;
-import com.rrc.util.DateUtil;
 import com.rrc.vo.SchoolVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @ClassName ISchoolService
@@ -43,6 +43,7 @@ public class SchoolServiceImpl implements ISchoolService {
                 .updateDate(new Date())
                 .updateUser(1L)
                 .build();
+
         schoolMapper.insert(shool);
     }
 
@@ -58,16 +59,12 @@ public class SchoolServiceImpl implements ISchoolService {
 
         School school = schoolMapper.selectById(schoolId);
 
-        if (Objects.isNull(school)) {
-            return null;
-        }
-
-        return SchoolDto.builder()
-                .id(school.getId())
-                .schoolName(school.getSchoolName())
-                .schoolAddress(school.getSchoolAddress())
-                .schoolIcon(school.getSchoolIcon())
-                .schoolEstablish(school.getSchoolEstablish()).build();
+        return Optional.ofNullable(school).map(obj -> SchoolDto.builder()
+                .id(obj.getId())
+                .schoolName(obj.getSchoolName())
+                .schoolAddress(obj.getSchoolAddress())
+                .schoolIcon(obj.getSchoolIcon())
+                .schoolEstablish(obj.getSchoolEstablish()).build()).orElseGet(() -> null);
     }
 
     /**
