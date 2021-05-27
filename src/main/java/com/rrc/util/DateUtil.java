@@ -78,10 +78,5 @@ public class DateUtil {
 
 		return new SimpleDateFormat(formater).format(date);
 	}
-
-	public static void main(String[] args) {
-		String ss = "1+=-_111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111122222222222222";
-		System.out.println(ss.length());
-	}
 }
 
