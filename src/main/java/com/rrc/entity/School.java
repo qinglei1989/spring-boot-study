@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.rrc.entry.base.BasePO;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * <p>
@@ -20,6 +18,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Builder
+@AllArgsConstructor //全参构造函数
+@NoArgsConstructor  //无参构造函数
 @TableName("sys_school")
 public class School extends BasePO {
 

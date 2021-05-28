@@ -1,5 +1,6 @@
 package com.rrc.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rrc.dto.SchoolDto;
 import com.rrc.entity.School;
 import com.rrc.mapper.SchoolMapper;
@@ -58,7 +59,10 @@ public class SchoolServiceImpl implements ISchoolService {
     public SchoolDto querySchool(Long schoolId) {
 
         School school = schoolMapper.selectById(schoolId);
-
+        //查询特定字段时的sql拼写
+        //QueryWrapper<School> queryWrapper = new QueryWrapper<>();
+        //queryWrapper.select("school_name", "school_address").eq("id", schoolId);
+        //School school = schoolMapper.selectOne(queryWrapper);
         return Optional.ofNullable(school).map(obj -> SchoolDto.builder()
                 .id(obj.getId())
                 .schoolName(obj.getSchoolName())
