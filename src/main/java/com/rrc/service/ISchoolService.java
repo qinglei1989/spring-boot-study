@@ -12,9 +12,9 @@ import com.rrc.vo.SchoolVo;
  * @Version 1.0
  **/
 public interface ISchoolService {
-    void postSchool(SchoolVo schoolVo);
+    int postSchool(SchoolVo schoolVo);
 
     SchoolDto querySchool(Long schoolId);
 
-    void deleteSchool(Long schoolId);
+    int deleteSchool(Long schoolId);
 }

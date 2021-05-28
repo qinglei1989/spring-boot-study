@@ -33,7 +33,7 @@ public class SchoolServiceImpl implements ISchoolService {
      * @Param [schoolVo]
      * @return void
      **/
-    public void postSchool(SchoolVo schoolVo) {
+    public int postSchool(SchoolVo schoolVo) {
         School shool = School.builder()
                 .schoolName(schoolVo.getSchoolName())
                 .schoolAddress(schoolVo.getSchoolAddress())
@@ -45,7 +45,7 @@ public class SchoolServiceImpl implements ISchoolService {
                 .updateUser(1L)
                 .build();
 
-        schoolMapper.insert(shool);
+        return schoolMapper.insert(shool);
     }
 
     /**
@@ -84,11 +84,13 @@ public class SchoolServiceImpl implements ISchoolService {
      * @return void
      **/
     @Override
-    public void deleteSchool(Long schoolId) {
+    public int deleteSchool(Long schoolId) {
         School school = schoolMapper.selectById(schoolId);
 
         if (Objects.nonNull(school)) {
             schoolMapper.deleteById(schoolId);
         }
+
+        return 0;
     }
 }
