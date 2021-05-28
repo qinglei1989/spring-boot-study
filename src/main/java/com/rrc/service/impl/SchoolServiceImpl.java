@@ -60,9 +60,14 @@ public class SchoolServiceImpl implements ISchoolService {
 
         School school = schoolMapper.selectById(schoolId);
         //查询特定字段时的sql拼写
-        //QueryWrapper<School> queryWrapper = new QueryWrapper<>();
-        //queryWrapper.select("school_name", "school_address").eq("id", schoolId);
-        //School school = schoolMapper.selectOne(queryWrapper);
+//        QueryWrapper<School> queryWrapper = new QueryWrapper<>();
+//        //queryWrapper.select("school_name", "school_address").eq("id", schoolId);
+//        queryWrapper.select(School.class, info -> info.getColumn().equals("school_name")
+//                || info.getColumn().equals("school_address"));
+//        School school = schoolMapper.selectOne(queryWrapper);
+
+
+
         return Optional.ofNullable(school).map(obj -> SchoolDto.builder()
                 .id(obj.getId())
                 .schoolName(obj.getSchoolName())
