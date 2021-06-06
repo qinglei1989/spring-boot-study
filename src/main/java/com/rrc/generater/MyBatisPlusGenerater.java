@@ -18,11 +18,11 @@ import com.rrc.entry.base.BasePO;
 public class MyBatisPlusGenerater {
     static String packageName = "com.rrc"; // 当前包名
     static String author = "Wangql"; // 作者
-    static String sqlUrl = "mysql://localhost:3306/"; // 数据库类型及地址
-    static String sqlDb = "schoolmanage"; // 数据库名
-    static String sqlUser = "root";
-    static String sqlPassword = "900926";
-    static String table = "sys_school"; // 表，用逗号隔开
+    static String sqlUrl = "mysql://rdsqv39909q66i6efi0k712.mysql.rds.aliyuncs.com/"; // 数据库类型及地址
+    static String sqlDb = "call_record_data"; // 数据库名
+    static String sqlUser = "work";
+    static String sqlPassword = "RqQb5YFfOH5ojZ16";
+    static String table = "cp_axb_contact_record"; // 表，用逗号隔开
 
     public static void main(String[] args) {
         // 代码生成器
@@ -41,8 +41,8 @@ public class MyBatisPlusGenerater {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:" + sqlUrl + sqlDb + "?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUrl("jdbc:" + sqlUrl + sqlDb + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull");
+        dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername(sqlUser);
         dsc.setPassword(sqlPassword);
         dsc.setDbType(DbType.MYSQL);
@@ -88,7 +88,7 @@ public class MyBatisPlusGenerater {
         // 驼峰转连字符
         strategy.setControllerMappingHyphenStyle(true);
         // 表前缀
-        strategy.setTablePrefix("sys_");
+        strategy.setTablePrefix("cp_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

@@ -1,5 +1,6 @@
 package com.rrc.controller.school;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rrc.dto.base.ResultDto;
 import com.rrc.service.ISchoolService;
 import com.rrc.util.AppUtil;
@@ -23,6 +24,12 @@ public class SchoolController {
     public ResultDto querySchool(@NotBlank(message = "schoolId不能为空") @PathVariable("schoolId") Long schoolId) {
 
         return AppUtil.resultSucc(schoolService.querySchool(schoolId));
+    }
+
+    @GetMapping("/school")
+    public ResultDto querySchoolList(Page page, @Valid @RequestBody SchoolVo schoolVo) {
+
+        return AppUtil.resultSucc(schoolService.querySchoolList(page, schoolVo));
     }
 
     @PostMapping("/school")

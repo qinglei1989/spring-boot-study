@@ -1,5 +1,7 @@
 package com.rrc.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rrc.dto.SchoolDto;
 import com.rrc.entity.School;
 import com.rrc.vo.SchoolVo;
@@ -17,4 +19,6 @@ public interface ISchoolService {
     SchoolDto querySchool(Long schoolId);
 
     int deleteSchool(Long schoolId);
+
+    IPage<SchoolDto> querySchoolList(Page<School> page, SchoolVo schoolVo);
 }
