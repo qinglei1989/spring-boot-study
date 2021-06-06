@@ -104,9 +104,9 @@ public class SchoolServiceImpl implements ISchoolService {
 
         if (Optional.ofNullable(schoolVo).isPresent()) {
             queryWrapper.lambda()
-            .eq(StringUtils.isBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName())
-            .eq(StringUtils.isBlank(schoolVo.getSchoolAddress()), School::getSchoolAddress, schoolVo.getSchoolAddress())
-            .eq(StringUtils.isBlank(schoolVo.getSchoolIcon()), School::getSchoolIcon, schoolVo.getSchoolIcon())
+            .eq(StringUtils.isNotBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName())
+            .eq(StringUtils.isNotBlank(schoolVo.getSchoolAddress()), School::getSchoolAddress, schoolVo.getSchoolAddress())
+            .eq(StringUtils.isNotBlank(schoolVo.getSchoolIcon()), School::getSchoolIcon, schoolVo.getSchoolIcon())
             .eq(Objects.nonNull(schoolVo.getSchoolEstablish()), School::getSchoolEstablish, schoolVo.getSchoolEstablish());
         }
 

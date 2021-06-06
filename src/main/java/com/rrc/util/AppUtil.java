@@ -29,22 +29,4 @@ public class AppUtil {
 
         return resultDto;
     }
-
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        String origion = "AB|CD|EF|JDHNKVJJ";
-        String changea = "AB|JDHNKVJJ|EF|CD";
-
-        if (StringUtils.isNotBlank(origion)) {
-            //操作
-        }
-
-        if (StringUtils.isBlank(origion)) {
-            return;
-        }
-
-        //操作
-        long ss = -990L;
-        System.out.println(new Date(ss));
-
-    }
 }

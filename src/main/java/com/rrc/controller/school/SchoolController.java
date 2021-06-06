@@ -7,6 +7,7 @@ import com.rrc.util.AppUtil;
 import com.rrc.vo.SchoolVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,13 +28,13 @@ public class SchoolController {
     }
 
     @GetMapping("/school")
-    public ResultDto querySchoolList(Page page, @Valid @RequestBody(required=false) SchoolVo schoolVo) {
+    public ResultDto querySchoolList(Page page, @Validated(value = SchoolVo.query.class) @RequestBody(required=false) SchoolVo schoolVo) {
 
         return AppUtil.resultSucc(schoolService.querySchoolList(page, schoolVo));
     }
 
     @PostMapping("/school")
-    public ResultDto postSchool(@Valid @RequestBody SchoolVo schoolVo) {
+    public ResultDto postSchool(@Validated(value = SchoolVo.insert.class) @RequestBody SchoolVo schoolVo) {
 
         schoolService.postSchool(schoolVo);
         return AppUtil.resultSucc();

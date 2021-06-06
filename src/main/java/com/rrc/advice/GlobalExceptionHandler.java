@@ -60,7 +60,8 @@ public class GlobalExceptionHandler {
 
         ResultDto exceptionResult = new ResultDto();
         exceptionResult.setStatus(ResultEnum.RESULT_REQ_FAIL.getCode());
-        exceptionResult.setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
+        exceptionResult.setMessage(e.getFieldErrors().get(0).getDefaultMessage());
+
         return exceptionResult;
     }
 
