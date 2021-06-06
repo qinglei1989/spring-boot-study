@@ -27,7 +27,7 @@ public class SchoolController {
     }
 
     @GetMapping("/school")
-    public ResultDto querySchoolList(Page page, @Valid @RequestBody SchoolVo schoolVo) {
+    public ResultDto querySchoolList(Page page, @Valid @RequestBody(required=false) SchoolVo schoolVo) {
 
         return AppUtil.resultSucc(schoolService.querySchoolList(page, schoolVo));
     }

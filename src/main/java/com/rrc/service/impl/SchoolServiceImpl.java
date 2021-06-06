@@ -100,14 +100,17 @@ public class SchoolServiceImpl implements ISchoolService {
 
     @Override
     public IPage<SchoolDto> querySchoolList(Page<School> page, SchoolVo schoolVo) {
-        Wrapper<School> queryWrapper = new QueryWrapper<School>().lambda()
-                .eq(StringUtils.isBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName())
-                .eq(StringUtils.isBlank(schoolVo.getSchoolAddress()), School::getSchoolAddress,schoolVo.getSchoolAddress())
-                .eq(StringUtils.isBlank(schoolVo.getSchoolIcon()), School::getSchoolIcon,schoolVo.getSchoolIcon())
-                .eq(Objects.nonNull(schoolVo.getSchoolEstablish()), School::getSchoolEstablish,schoolVo.getSchoolEstablish());
+        QueryWrapper<School> queryWrapper = new QueryWrapper<School>();
+
+        if (Optional.ofNullable(schoolVo).isPresent()) {
+            queryWrapper.lambda()
+            .eq(StringUtils.isBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName())
+            .eq(StringUtils.isBlank(schoolVo.getSchoolAddress()), School::getSchoolAddress, schoolVo.getSchoolAddress())
+            .eq(StringUtils.isBlank(schoolVo.getSchoolIcon()), School::getSchoolIcon, schoolVo.getSchoolIcon())
+            .eq(Objects.nonNull(schoolVo.getSchoolEstablish()), School::getSchoolEstablish, schoolVo.getSchoolEstablish());
+        }
 
         Page<School> listPage = schoolMapper.selectPage(page, queryWrapper);
-
 
         return  listPage.convert(obj -> SchoolDto.builder()
                 .id(obj.getId())
