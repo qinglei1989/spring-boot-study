@@ -61,14 +61,11 @@ public class SchoolServiceImpl implements ISchoolService {
      **/
     @Override
     public SchoolDto querySchool(Long schoolId) {
-
+/*        使用Entry转Dto
         School school = schoolMapper.selectById(schoolId);
         //查询特定字段时的sql拼写
         QueryWrapper<School> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("school_name", "school_address").eq("id", schoolId);
-//        queryWrapper.select(School.class, info -> info.getColumn().equals("school_name")
-//                || info.getColumn().equals("school_address"));
-//        School school = schoolMapper.selectOne(queryWrapper);
 
 
 
@@ -77,7 +74,14 @@ public class SchoolServiceImpl implements ISchoolService {
                 .schoolName(obj.getSchoolName())
                 .schoolAddress(obj.getSchoolAddress())
                 .schoolIcon(obj.getSchoolIcon())
-                .schoolEstablish(obj.getSchoolEstablish()).build()).orElseGet(() -> null);
+                .schoolEstablish(obj.getSchoolEstablish()).build()).orElseGet(() -> null);*/
+        QueryWrapper<School> queryWrapper = new QueryWrapper<School>();
+        Long id = schoolId;
+        queryWrapper.eq(Objects.nonNull(schoolId), "id", id);
+        //queryWrapper.and(qw -> {qw.eq("id", id);});
+        SchoolDto schoolDto = schoolMapper.selectCustomById(queryWrapper);
+
+        return schoolDto;
     }
 
     /**
@@ -101,7 +105,7 @@ public class SchoolServiceImpl implements ISchoolService {
     @Override
     public IPage<SchoolDto> querySchoolList(Page<School> page, SchoolVo schoolVo) {
         QueryWrapper<School> queryWrapper = new QueryWrapper<School>();
-
+        queryWrapper.lambda().like(StringUtils.isNotBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName());
         if (Optional.ofNullable(schoolVo).isPresent()) {
             queryWrapper.lambda()
             .eq(StringUtils.isNotBlank(schoolVo.getSchoolName()), School::getSchoolName, schoolVo.getSchoolName())
