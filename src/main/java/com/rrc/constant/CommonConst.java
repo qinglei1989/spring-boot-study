@@ -17,4 +17,9 @@ public class CommonConst {
      * 未删除
      **/
     public static final String DEL_FLAG_1 = "1";
+
+    /**
+     * 默认起始页为1
+     **/
+    public static final int DEFAULT_PAGE_NO = 1;
 }
