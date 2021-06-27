@@ -14,8 +14,10 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.*;
 
@@ -123,7 +125,7 @@ public class RedisConfig {
 
         // 收藏主题并绑定消息订阅处理器
         collectListenerAdapter.setSerializer(jackson2JsonRedisSerializer);
-        container.addMessageListener(collectListenerAdapter, new PatternTopic("TOPIC_COLLECT"));
+        container.addMessageListener(collectListenerAdapter, new ChannelTopic("TOPIC_COLLECT"));
 
         // 收藏主题并绑定消息订阅处理器
         //commentListenerAdapter.setSerializer(jackson2JsonRedisSerializer);

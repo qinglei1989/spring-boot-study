@@ -10,8 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 /**
  * @ClassName Test_1
@@ -33,11 +36,21 @@ public class Test_1 {
     public void set() throws InterruptedException {
         redisTemplate.opsForValue().set("myKey","myValue");
         System.out.println(redisTemplate.opsForValue().get("myKey"));
-        redisTemplate.convertAndSend(RedisConstant.TOPIC_COLLECT,
-                JSON.toJSONString(new MessageCollect("3", "4", "wangql", "nidaye", "9", Arrays.asList("1", "2"))));
-        redisTemplate.convertAndSend(RedisConstant.TOPIC_COMMENT,
-                JSON.toJSONString(new MessageCollect("3", "4", "wangql", "nidaye", "9", Arrays.asList("1", "2"))));
-        System.out.println("333333333333");
-        Thread.sleep(3000);
+
+        for (int i = 0; i < 100000000; i++) {
+            redisTemplate.convertAndSend(RedisConstant.TOPIC_COLLECT,
+                    JSON.toJSONString(new MessageCollect("3", "4", "wangql", "nidaye", "9", Arrays.asList("1", "2"))));
+            Thread.sleep(100);
+        }
+
+//        redisTemplate.convertAndSend(RedisConstant.TOPIC_COMMENT,
+//                JSON.toJSONString(new MessageCollect("3", "4", "wangql", "nidaye", "9", Arrays.asList("1", "2"))));
+//        System.out.println("333333333333");
+//        Thread.sleep(3000);
+//        System.out.println(RedisConstant.getLocalHostExactAddress());
+
+
+
     }
+
 }
